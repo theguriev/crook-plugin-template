@@ -14,6 +14,8 @@ publish.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+# One, and it is the whole API. The wire format is inside it — `to_bytes` and
+# `from_bytes` are its functions — so a plugin never names `postcard` or
+# `serde` itself, and a plugin that did would be pinning a version of the
+# encoding against the host's.
 crook_plugin_api.workspace = true
-postcard.workspace = true
-serde.workspace = true

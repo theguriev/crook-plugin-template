@@ -38,6 +38,10 @@ category — and a person answers for it on the Plugins page before your plugin 
 Add one and their card will show the sentence they have to agree to:
 
 ```rust
+// in the `use` at the top of lib.rs, beside the shapes already there:
+use crook_plugin_api::Capability;
+
+// and in `manifest()`, instead of `Vec::new()`:
 capabilities: vec![Capability::Network(vec![String::from("api.github.com")])],
 ```
 
