@@ -15,7 +15,10 @@
 /// first thing anybody writes after "hello" is the line that says what went
 /// wrong.
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-#[allow(dead_code, reason = "the template says Info; a real plugin says the others")]
+#[allow(
+    dead_code,
+    reason = "the template says Info; a real plugin says the others"
+)]
 pub enum Level {
     /// Something failed.
     Error = 1,
