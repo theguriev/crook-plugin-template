@@ -23,9 +23,6 @@ publish = false
 # range, and there is no wider one to ask for.
 crook_plugin_api = "0.8"
 
-postcard = { version = "1.1", default-features = false, features = ["alloc"] }
-serde = { version = "1.0", default-features = false, features = ["derive", "alloc"] }
-
 [profile.release]
 # A person downloads this. A megabyte of formatting code is a megabyte nobody
 # asked for, and these five lines are most of the difference.

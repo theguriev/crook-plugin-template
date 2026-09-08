@@ -38,8 +38,6 @@ name = "plugin"
 version = "0.1.0"
 dependencies = [
  "crook_plugin_api",
- "postcard",
- "serde",
 ]
 
 [[package]]

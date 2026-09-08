@@ -11,11 +11,16 @@ fn it_says_what_it_is_before_any_of_it_runs() {
     let manifest = manifest();
 
     assert_eq!(manifest.abi, ABI_VERSION);
-    assert!(
-        manifest.capabilities.is_empty(),
-        "this one asks for nothing, and a plugin that asks for nothing draws at once"
-    );
     assert_eq!(manifest.version, env!("CARGO_PKG_VERSION"));
+    assert!(!manifest.id.is_empty() && !manifest.name.is_empty());
+
+    // Whatever this ends up asking for, every one of them has a sentence,
+    // because that sentence is what a person is shown before they allow it.
+    // As written it asks for nothing — which is why it draws the moment it is
+    // installed — and adding a capability should not turn this test red.
+    for capability in &manifest.capabilities {
+        assert!(!capability.sentence().is_empty());
+    }
 }
 
 #[test]
@@ -37,8 +42,12 @@ fn anything_else_draws_nothing_rather_than_a_guess() {
     // A slot this plugin did not contribute to, and a request that did not
     // decode. Drawing nothing is not a hole: the host puts back whatever it
     // would have drawn without a plugin there.
+    //
+    // The name is deliberately one no host declares rather than another real
+    // slot: change `SLOT` above to the real one this used to name and the test
+    // would start failing for saying something true.
     let elsewhere = tree(Some(Render {
-        slot: String::from("tab.row.mark"),
+        slot: String::from("a.slot.this.plugin.did.not.ask.for"),
         entry: String::from(ENTRY),
         subject: None,
     }));
