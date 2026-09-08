@@ -1,0 +1,19 @@
+[package]
+name = "plugin"
+description = "A Crook plugin that says hello in the header."
+authors.workspace = true
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lib]
+# `cdylib` is what `wasm32-unknown-unknown` needs to produce a module with
+# exports rather than a Rust archive nothing outside Rust can load.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+crook_plugin_api.workspace = true
+postcard.workspace = true
+serde.workspace = true

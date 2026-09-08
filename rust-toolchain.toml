@@ -1,0 +1,7 @@
+[toolchain]
+channel = "1.92.0"
+components = ["rustfmt", "clippy"]
+# The target the sandbox links. Not `wasm32-wasip1`: the host gives a module
+# seven functions and refuses one that imports anything else.
+targets = ["wasm32-unknown-unknown"]
+profile = "minimal"

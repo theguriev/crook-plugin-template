@@ -1,0 +1,36 @@
+[workspace]
+members = ["crates/*"]
+resolver = "3"
+
+[workspace.package]
+# Yours.
+authors = ["you <you@example.com>"]
+edition = "2024"
+# The plugin's own version. It is what the Plugins page prints, what the
+# registry indexes, and what the terminal names the directory it installs into
+# — so bump it when you release, and do not reuse one.
+version = "0.1.0"
+license = "MIT"
+repository = "https://github.com/you/crook-hello"
+# Nothing here goes to crates.io: a plugin is published as a `.wasm`, by a
+# registry that builds it from source.
+publish = false
+
+[workspace.dependencies]
+# The vocabulary a plugin and the terminal share. `0.8` is Cargo's way of
+# writing "plugin ABI 8": the crate is versioned `0.<abi>.<patch>`, and a host
+# loads one ABI and refuses every other by name — so this is the compatibility
+# range, and there is no wider one to ask for.
+crook_plugin_api = "0.8"
+
+postcard = { version = "1.1", default-features = false, features = ["alloc"] }
+serde = { version = "1.0", default-features = false, features = ["derive", "alloc"] }
+
+[profile.release]
+# A person downloads this. A megabyte of formatting code is a megabyte nobody
+# asked for, and these five lines are most of the difference.
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
