@@ -21,7 +21,7 @@ publish = false
 # writing "plugin ABI 8": the crate is versioned `0.<abi>.<patch>`, and a host
 # loads one ABI and refuses every other by name — so this is the compatibility
 # range, and there is no wider one to ask for.
-crook_plugin_api = "0.8"
+crook_plugin_api = "0.8.1"
 
 [profile.release]
 # A person downloads this. A megabyte of formatting code is a megabyte nobody

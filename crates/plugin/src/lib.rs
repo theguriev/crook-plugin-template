@@ -37,6 +37,14 @@ use crook_plugin_api::{ABI_VERSION, Manifest, Node, Render, Size, Tone, from_byt
 
 mod sys;
 
+// The plugin's face, and what it looks like, for the Plugins page and the
+// Store. Inside the module rather than beside it, for the reason a plugin is
+// one file: what says what the plugin is travels with it. Custom sections,
+// not data — they cost no memory and no fuel. The icon is a 128 px square;
+// a preview is a screenshot captured at 2x, with a caption of one line.
+crook_plugin_api::icon!("../../../assets/icon.png");
+crook_plugin_api::preview!(1, "../../../assets/header.png", "The chip in the header");
+
 /// Where this draws: the right-hand end of the header.
 ///
 /// One of the slots the host declares. `tab.row.mark` is a mark on every tab,

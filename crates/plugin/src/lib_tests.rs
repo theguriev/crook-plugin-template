@@ -24,6 +24,14 @@ fn it_says_what_it_is_before_any_of_it_runs() {
 }
 
 #[test]
+fn the_pictures_in_the_module_are_pngs() {
+    // A wrong path fails at compile time; a wrong file fails here, on the
+    // machine that runs the tests, rather than on the Plugins page.
+    assert!(CROOK_ICON.starts_with(b"\x89PNG\r\n\x1a\n"));
+    assert!(CROOK_PREVIEW_1.starts_with(b"\x89PNG\r\n\x1a\n"));
+}
+
+#[test]
 fn it_draws_a_word_in_the_slot_it_asked_for() {
     let drawn = tree(Some(Render {
         slot: String::from(SLOT),
