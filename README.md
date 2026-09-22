@@ -17,6 +17,8 @@ it again every time you build it. Nothing is installed and nothing is left on th
 crates/plugin/src/lib.rs        five exports, a manifest, and what it draws
 crates/plugin/src/sys.rs        the two host functions it uses, stubbed off wasm
 crates/plugin/src/lib_tests.rs  what it draws, tested with no terminal in sight
+assets/icon.png                 its face, beside its name on the Plugins page and in the Store
+assets/header.png               what it looks like, shown on a press
 ```
 
 Three hundred lines, most of them comments. The parts to change first:
@@ -29,6 +31,22 @@ Three hundred lines, most of them comments. The parts to change first:
 - **`tree()`** — what it draws, as a `Node`. There is no colour and no pixel in it: a `Node` says
   what a thing *is* and the terminal draws it in whatever theme is in force, which is what makes
   a plugin written today come out right in a theme written years from now.
+
+## Pictures
+
+The icon and the preview travel *inside* `plugin.wasm`, as custom sections — two lines in
+`lib.rs` put them there, and nothing beside the file has to be kept in step with it:
+
+```rust
+crook_plugin_api::icon!("../../../assets/icon.png");
+crook_plugin_api::preview!(1, "../../../assets/header.png", "The chip in the header");
+```
+
+An icon is a square PNG, 32 to 256 pixels a side and at most 32 KiB; draw it at 128. A preview is
+a PNG of at most 512 KiB with no side past 2048, captured at 2x — `crook-dev --snapshot` renders
+at that scale, so a screenshot's logical size is its pixels halved — and its caption is one line.
+Up to six, numbered. `crook-plugin-info plugin.wasm` prints what a module carries, and
+`crook --dev-plugin plugin.wasm` draws it on the Plugins page with nothing installed.
 
 ## Asking for something
 
